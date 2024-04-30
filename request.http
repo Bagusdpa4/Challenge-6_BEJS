@@ -1,0 +1,31 @@
+### create user
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "first_name": "Bagus Dwi",
+    "last_name": "Putra Adiyono",
+    "email": "sugab.dwi88@gmail.com",
+    "password": "123456"
+}
+
+### Get all user
+GET http://localhost:3000/api/v1/users
+
+### Get all user by search
+GET http://localhost:3000/api/v1/users?search=bagus
+
+### Get user by id
+GET http://localhost:3000/api/v1/users/1
+
+### Update profile
+PUT http://localhost:3000/api/v1/users/1/profile
+Content-Type: application/json
+
+{
+    "address" : "Jl. Tikus",
+    "occupation" : "IT Consultan" 
+}
+
+### Delete user
+DELETE  http://localhost:3000/api/v1/users/2
