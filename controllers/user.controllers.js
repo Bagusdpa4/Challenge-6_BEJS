@@ -3,9 +3,11 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const imageKit = require("../libs/imagekit");
 const path = require("path");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET_KEY } = process.env;
 
 module.exports = {
-  store: async (req, res, next) => {
+  register: async (req, res, next) => {
     try {
       const { first_name, last_name, email, password } = req.body;
 
@@ -47,6 +49,52 @@ module.exports = {
     }
   },
 
+  login: async (req, res, next) => {
+    try {
+      let { email, password } = req.body;
+      let user = await prisma.user.findFirst({ where: { email } });
+      if (!user) {
+        return res.status(400).json({
+          status: false,
+          message: "invalid email or password",
+          data: null,
+        });
+      }
+
+      let isPasswordCorrect = await bcrypt.compare(password, user.password);
+      if (!isPasswordCorrect) {
+        return res.status(400).json({
+          status: false,
+          message: "invalid email or password",
+          data: null,
+        });
+      }
+
+      delete user.password;
+      let token = jwt.sign(user, JWT_SECRET_KEY);
+
+      return res.status(201).json({
+        status: true,
+        message: "success",
+        data: { ...user, token },
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  auth: async (req, res, next) => {
+    try {
+      return res.status(200).json({
+        status: true,
+        message: "OK",
+        data: req.user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   index: async (req, res, next) => {
     try {
       const { search } = req.query;
@@ -54,7 +102,7 @@ module.exports = {
       const users = await prisma.user.findMany({
         where: { first_name: { contains: search, mode: "insensitive" } },
       });
-      users.forEach(user => {
+      users.forEach((user) => {
         delete user.password;
       });
       res.status(200).json({

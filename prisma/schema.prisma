@@ -11,14 +11,27 @@ datasource db {
 }
 
 model User {
-  id         Int     @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   first_name String
   last_name  String
-  email      String  @unique
+  email      String      @unique
   password   String
   address    String?
   occupation String?
   avatar_url String?
+  post       PostImage[]
 
   @@map("users")
+}
+
+model PostImage {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  image_url   String
+  image_id    String @unique
+  User        User?  @relation(fields: [user_id], references: [id])
+  user_id     Int
+
+  @@map("posts")
 }
