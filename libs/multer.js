@@ -21,7 +21,7 @@ const generateFileFilter = (mimetypes, maxSize) => {
 };
 
 module.exports = {
-  imageKit: multer({
+  image: multer({
     fileFilter: generateFileFilter(["image/png", "image/jpg", "image/jpeg"], 1),
     onError: (err, next) => {
       next(err);

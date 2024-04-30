@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const {register, login, auth, index, show, update, avatar, destroy } = require("../controllers/user.controllers");
 const restrict = require('../middlewares/auth.middlewares')
-const { imageKit } = require("../libs/multer")
+const { image } = require("../libs/multer")
 
 // API Users
 router.post("/users", register);
 router.get("/users", index);
 router.get("/users/:id",restrict, show);
 router.put("/users/:id/profile",restrict, update);
-router.put("/users/:id/avatar",restrict, imageKit.single('file'), avatar);
+router.put("/users/:id/avatar",restrict, image.single('image'), avatar);
 router.delete("/users/:id",restrict, destroy);
 
 // API Auth

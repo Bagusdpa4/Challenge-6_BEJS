@@ -104,6 +104,9 @@ module.exports = {
       });
       users.forEach((user) => {
         delete user.password;
+        delete user.address;
+        delete user.occupation;
+        delete user.avatar_url;
       });
       res.status(200).json({
         status: true,
@@ -189,6 +192,14 @@ module.exports = {
   avatar: async (req, res, next) => {
     const id = Number(req.params.id);
     try {
+      if (!req.file) {
+        return res.status(400).json({
+          status: false,
+          message: "Avatar image must be provided",
+          data: null,
+        });
+      }
+
       let strFile = req.file.buffer.toString("base64");
 
       let { url } = await imageKit.upload({
@@ -196,11 +207,11 @@ module.exports = {
         file: strFile,
       });
 
-      const exist = await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { id },
       });
 
-      if (!exist) {
+      if (!user) {
         return res.status(404).json({
           status: false,
           message: `User with id ${id} not found`,
@@ -208,15 +219,16 @@ module.exports = {
         });
       }
 
-      const user = await prisma.user.update({
+      const updatedUser = await prisma.user.update({
         where: { id },
         data: { avatar_url: url },
       });
-      delete user.password;
+
+      delete updatedUser.password;
       res.status(200).json({
         status: true,
-        message: "Avatar_User updated successfully",
-        data: user,
+        message: "Avatar updated successfully",
+        data: updatedUser,
       });
     } catch (error) {
       next(error);
