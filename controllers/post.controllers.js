@@ -161,7 +161,6 @@ module.exports = {
         });
       }
 
-      // Hapus file dari ImageKit
       imageKit.deleteFile(exist.image_id, async (error, result) => {
         if (error) {
           console.log(error, "ini error");
@@ -171,7 +170,7 @@ module.exports = {
           });
         } else {
           console.log(result, "ini result");
-          // Lanjutkan untuk menghapus entri dari database setelah penghapusan file selesai
+
           await prisma.image.delete({
             where: { id },
           });

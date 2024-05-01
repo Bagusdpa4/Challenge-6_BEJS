@@ -200,6 +200,14 @@ module.exports = {
         });
       }
 
+      if (!user) {
+        return res.status(404).json({
+          status: false,
+          message: `User with id ${id} not found`,
+          data: null,
+        });
+      }
+
       let strFile = req.file.buffer.toString("base64");
 
       let { url } = await imageKit.upload({
@@ -211,14 +219,6 @@ module.exports = {
       const user = await prisma.user.findUnique({
         where: { id },
       });
-
-      if (!user) {
-        return res.status(404).json({
-          status: false,
-          message: `User with id ${id} not found`,
-          data: null,
-        });
-      }
 
       const updatedUser = await prisma.user.update({
         where: { id },
