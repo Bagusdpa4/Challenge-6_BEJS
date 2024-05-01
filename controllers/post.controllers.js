@@ -30,9 +30,10 @@ module.exports = {
 
       let strFile = req.file.buffer.toString("base64");
 
-      let { url } = await imageKit.upload({
+      let { url, fileId } = await imageKit.upload({
         fileName: Date.now() + path.extname(req.file.originalname),
         file: strFile,
+        folder: "/challenge6/images",
       });
 
       const postImage = await prisma.image.create({
@@ -41,6 +42,7 @@ module.exports = {
           description,
           image_url: url,
           user_id: req.user.id,
+          image_id: fileId,
         },
       });
 
@@ -60,6 +62,11 @@ module.exports = {
 
       const Image = await prisma.image.findMany({
         where: { title: { contains: search, mode: "insensitive" } },
+      });
+
+      Image.forEach((image) => {
+        delete image.image_id;
+        delete image.user_id;
       });
 
       res.status(200).json({
@@ -154,18 +161,25 @@ module.exports = {
         });
       }
 
-      imageKit.deleteFile(exist.image_id, (error, result) => {
-        if (error) console.log(error, "ini error");
-        else console.log(result, "ini result");
-      });
-
-      await prisma.image.delete({
-        where: { id },
-      });
-
-      return res.status(200).json({
-        status: true,
-        message: "Image deleted successfully",
+      // Hapus file dari ImageKit
+      imageKit.deleteFile(exist.image_id, async (error, result) => {
+        if (error) {
+          console.log(error, "ini error");
+          return res.status(500).json({
+            status: false,
+            message: "Failed to delete image from ImageKit",
+          });
+        } else {
+          console.log(result, "ini result");
+          // Lanjutkan untuk menghapus entri dari database setelah penghapusan file selesai
+          await prisma.image.delete({
+            where: { id },
+          });
+          return res.status(200).json({
+            status: true,
+            message: "Image deleted successfully",
+          });
+        }
       });
     } catch (error) {
       next(error);

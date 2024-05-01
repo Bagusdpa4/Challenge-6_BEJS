@@ -18,6 +18,7 @@ CREATE TABLE "images" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "image_url" TEXT NOT NULL,
+    "image_id" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
 
     CONSTRAINT "images_pkey" PRIMARY KEY ("id")

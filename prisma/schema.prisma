@@ -29,6 +29,7 @@ model Image {
   title       String
   description String
   image_url   String
+  image_id    String
   User        User?  @relation(fields: [user_id], references: [id])
   user_id     Int
 

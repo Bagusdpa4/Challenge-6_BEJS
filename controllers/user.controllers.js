@@ -205,6 +205,7 @@ module.exports = {
       let { url } = await imageKit.upload({
         fileName: Date.now() + path.extname(req.file.originalname),
         file: strFile,
+        folder: "/challenge6/avatar",
       });
 
       const user = await prisma.user.findUnique({
@@ -240,8 +241,9 @@ module.exports = {
     try {
       const exist = await prisma.user.findUnique({
         where: { id },
+        include: { image: true }, // Include related images
       });
-
+  
       if (!exist) {
         return res.status(404).json({
           status: false,
@@ -249,17 +251,37 @@ module.exports = {
           data: null,
         });
       }
-
+  
+      // Delete images from ImageKit
+      for (const image of exist.image) {
+        try {
+          if (image.image_id) {
+            await imageKit.deleteFile(image.image_id);
+          } else {
+            console.log("Image ID is missing for image:", image.id);
+          }
+        } catch (error) {
+          console.error("Failed to delete image from ImageKit:", error.message);
+        }
+      }
+  
+      // Delete images from Prisma
+      await prisma.image.deleteMany({
+        where: { user_id: id },
+      });
+  
+      // Delete user from Prisma
       await prisma.user.delete({
         where: { id },
       });
-
+  
       res.status(200).json({
         status: true,
-        message: "User deleted successfully",
+        message: "User and associated images deleted successfully",
       });
     } catch (error) {
       next(error);
     }
   },
+  
 };
