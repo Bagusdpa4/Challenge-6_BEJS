@@ -1,5 +1,5 @@
 ### create user
-POST http://localhost:3000/api/v1/users
+POST http://localhost:3000/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ### login token
 GET http://localhost:3000/api/v1/auth/authenticate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOiJKbC4gVGlrdXMiLCJvY2N1cGF0aW9uIjoiSVQgQ29uc3VsdGFuIiwiYXZhdGFyX3VybCI6Imh0dHBzOi8vaWsuaW1hZ2VraXQuaW8vYmFndXNkcGEvMTcxNDQ4MDQwNjc2NF9ySkx5Q0ZTaDMuanBnIiwiaWF0IjoxNzE0NDgwNzc3fQ.SrbIWmPc4IRB4QaU5HgZjPfH0ZQ07ZqV8skoG2BRneU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDY1NjU0OX0.EDBoM0zj1CdbOaI2zRy7VkgjBC0xZd9C8ozzhjIW8lc
 
 ### Get all user
 GET http://localhost:3000/api/v1/users
@@ -30,7 +30,7 @@ GET http://localhost:3000/api/v1/users?search=bagus
 
 ### Get user by id
 GET http://localhost:3000/api/v1/users/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOm51bGwsIm9jY3VwYXRpb24iOm51bGwsImF2YXRhcl91cmwiOm51bGwsImlhdCI6MTcxNDQ4MDE1OX0.ieYowOwQnVRCwIiZdM5mgMxjH6dMRpVHQEo9MzURP0Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDY1NjU0OX0.EDBoM0zj1CdbOaI2zRy7VkgjBC0xZd9C8ozzhjIW8lc
 
 ### Update profile
 PUT http://localhost:3000/api/v1/users/1/profile
@@ -38,7 +38,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3Rfb
 Content-Type: application/json
 
 {
-    "address" : "Jl. Tikus",
+    "address" : "Jl. Kebenaran",
     "occupation" : "IT Consultan" 
 }
 

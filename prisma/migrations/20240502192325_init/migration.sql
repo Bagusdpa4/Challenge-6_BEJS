@@ -8,6 +8,7 @@ CREATE TABLE "users" (
     "address" TEXT,
     "occupation" TEXT,
     "avatar_url" TEXT,
+    "avatar_id" TEXT,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

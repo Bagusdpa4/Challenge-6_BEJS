@@ -19,6 +19,7 @@ model User {
   address    String?
   occupation String?
   avatar_url String?
+  avatar_id  String?
   image      Image[]
 
   @@map("users")

@@ -38,6 +38,7 @@ module.exports = {
         },
       });
       delete user.password;
+      delete user.avatar_id;
 
       res.status(201).json({
         status: true,
@@ -70,6 +71,10 @@ module.exports = {
         });
       }
 
+      delete user.address;
+      delete user.occupation;
+      delete user.avatar_url;
+      delete user.avatar_id;
       delete user.password;
       let token = jwt.sign(user, JWT_SECRET_KEY);
 
@@ -85,9 +90,12 @@ module.exports = {
 
   auth: async (req, res, next) => {
     try {
+      const user = req.user;
+      delete user.avatar_id;
+
       return res.status(200).json({
         status: true,
-        message: "OK",
+        message: "Success",
         data: req.user,
       });
     } catch (error) {
@@ -107,6 +115,7 @@ module.exports = {
         delete user.address;
         delete user.occupation;
         delete user.avatar_url;
+        delete user.avatar_id;
       });
       res.status(200).json({
         status: true,
@@ -133,6 +142,7 @@ module.exports = {
         });
       }
       delete user.password;
+      delete user.avatar_id;
       res.status(200).json({
         status: true,
         message: "success",
@@ -146,9 +156,9 @@ module.exports = {
   update: async (req, res, next) => {
     const id = Number(req.params.id);
     try {
-      const { first_name, last_name, email, address, occupation } = req.body;
+      const { first_name, last_name, address, occupation } = req.body;
 
-      if (!first_name && !last_name && !email && !address && !occupation) {
+      if (!first_name && !last_name && !address && !occupation) {
         return res.status(400).json({
           status: false,
           message: "At least one data must be provided for update",
@@ -173,12 +183,12 @@ module.exports = {
         data: {
           first_name,
           last_name,
-          email,
           address,
           occupation,
         },
       });
       delete user.password;
+      delete user.avatar_id;
       res.status(200).json({
         status: true,
         message: "User updated successfully",
@@ -192,13 +202,9 @@ module.exports = {
   avatar: async (req, res, next) => {
     const id = Number(req.params.id);
     try {
-      if (!req.file) {
-        return res.status(400).json({
-          status: false,
-          message: "Avatar image must be provided",
-          data: null,
-        });
-      }
+      const user = await prisma.user.findUnique({
+        where: { id },
+      });
 
       if (!user) {
         return res.status(404).json({
@@ -208,24 +214,29 @@ module.exports = {
         });
       }
 
+      if (!req.file) {
+        return res.status(401).json({
+          status: false,
+          message: "Avatar image must be provided",
+          data: null,
+        });
+      }
+
       let strFile = req.file.buffer.toString("base64");
 
-      let { url } = await imageKit.upload({
+      let { url, fileId } = await imageKit.upload({
         fileName: Date.now() + path.extname(req.file.originalname),
         file: strFile,
         folder: "/challenge6/avatar",
       });
 
-      const user = await prisma.user.findUnique({
-        where: { id },
-      });
-
       const updatedUser = await prisma.user.update({
         where: { id },
-        data: { avatar_url: url },
+        data: { avatar_url: url, avatar_id: fileId },
       });
 
       delete updatedUser.password;
+      delete updatedUser.avatar_id;
       res.status(200).json({
         status: true,
         message: "Avatar updated successfully",
@@ -241,7 +252,7 @@ module.exports = {
     try {
       const exist = await prisma.user.findUnique({
         where: { id },
-        include: { image: true }, // Include related images
+        include: { image: true },
       });
   
       if (!exist) {
@@ -252,7 +263,19 @@ module.exports = {
         });
       }
   
-      // Delete images from ImageKit
+      if (exist.avatar_id) {
+        imageKit.deleteFile(exist.avatar_id, async (error, result) => {
+          if (error) {
+            console.log(error, "ini error");
+            return res.status(500).json({
+              status: false,
+              message: "Failed to delete avatar from ImageKit",
+            });
+          }
+          console.log(result, "ini result");
+        });
+      }
+  
       for (const image of exist.image) {
         try {
           if (image.image_id) {
@@ -261,16 +284,17 @@ module.exports = {
             console.log("Image ID is missing for image:", image.id);
           }
         } catch (error) {
-          console.error("Failed to delete image from ImageKit:", error.message);
+          console.error(
+            "Failed to delete image from ImageKit:",
+            error.message
+          );
         }
       }
   
-      // Delete images from Prisma
       await prisma.image.deleteMany({
         where: { user_id: id },
       });
   
-      // Delete user from Prisma
       await prisma.user.delete({
         where: { id },
       });
@@ -283,5 +307,4 @@ module.exports = {
       next(error);
     }
   },
-  
 };

@@ -9,7 +9,7 @@ module.exports = {
       const { title, description } = req.body;
 
       if (!req.file || !title || !description) {
-        return res.status(400).json({
+        return res.status(401).json({
           status: false,
           message: "Input must be required",
           data: null,
@@ -21,7 +21,7 @@ module.exports = {
       });
 
       if (exist) {
-        return res.status(401).json({
+        return res.status(403).json({
           status: false,
           message: "Title has been used!",
           data: null,
@@ -46,6 +46,7 @@ module.exports = {
         },
       });
 
+      delete postImage.image_id
       return res.status(201).json({
         status: true,
         message: "Upload Image Successfully",
@@ -93,6 +94,8 @@ module.exports = {
           data: null,
         });
       }
+
+      delete Image.image_id
       res.status(200).json({
         status: true,
         message: "success",
@@ -136,6 +139,7 @@ module.exports = {
         },
       });
 
+      delete Image.image_id
       res.status(200).json({
         status: true,
         message: "Image updated successfully",
