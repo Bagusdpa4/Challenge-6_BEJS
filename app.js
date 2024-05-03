@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(routes);
 
+app.get('/', (req,res) => res.json({status: true, message: "Hello World!", data: null}))
+
 // 404 error handler
 app.use((req, res, next) => {
     res.status(404).json({

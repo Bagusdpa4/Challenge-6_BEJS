@@ -5,7 +5,7 @@ const { image } = require("../libs/multer")
 
 // API Users
 router.get("/users", index);
-router.get("/users/:id",restrict, show);
+router.get("/users/:id", show);
 router.put("/users/:id/profile",restrict, update);
 router.put("/users/:id/avatar",restrict, image.single('image'), avatar);
 router.delete("/users/:id",restrict, destroy);
