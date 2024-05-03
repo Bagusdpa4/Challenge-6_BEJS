@@ -7,6 +7,7 @@ info:
     email: sugab.dwi88@gmail.com
 servers:
   - url: http://localhost:3000/api/v1
+  - url: expressjs-development-c804.up.railway.app
 tags:
   - name: "Auth"
     description: Operations about auth user

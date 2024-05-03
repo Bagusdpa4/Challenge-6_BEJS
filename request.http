@@ -1,5 +1,5 @@
 ### create user
-POST http://localhost:3000/api/v1/auth/register
+POST expressjs-development-c804.up.railway.app/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Login User
-POST http://localhost:3000/api/v1/auth/login
+POST expressjs-development-c804.up.railway.app/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -19,21 +19,21 @@ Content-Type: application/json
 }
 
 ### login token
-GET http://localhost:3000/api/v1/auth/authenticate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDY1NjU0OX0.EDBoM0zj1CdbOaI2zRy7VkgjBC0xZd9C8ozzhjIW8lc
+GET expressjs-development-c804.up.railway.app/api/v1/auth/authenticate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDcyNjI4MX0.x7yFBTNY58jpH11_X3yJEwcBasavyiTx0LELQWhzeIo
 
 ### Get all user
-GET http://localhost:3000/api/v1/users
+GET expressjs-development-c804.up.railway.app/api/v1/users
 
 ### Get all user by search
-GET http://localhost:3000/api/v1/users?search=bagus
+GET expressjs-development-c804.up.railway.app/api/v1/users?search=bagus
 
 ### Get user by id
-GET http://localhost:3000/api/v1/users/1
+GET expressjs-development-c804.up.railway.app/api/v1/users/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDY1NjU0OX0.EDBoM0zj1CdbOaI2zRy7VkgjBC0xZd9C8ozzhjIW8lc
 
 ### Update profile
-PUT http://localhost:3000/api/v1/users/1/profile
+PUT expressjs-development-c804.up.railway.app/api/v1/users/1/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOm51bGwsIm9jY3VwYXRpb24iOm51bGwsImF2YXRhcl91cmwiOm51bGwsImlhdCI6MTcxNDQ4MDE1OX0.ieYowOwQnVRCwIiZdM5mgMxjH6dMRpVHQEo9MzURP0Y
 Content-Type: application/json
 
@@ -43,19 +43,19 @@ Content-Type: application/json
 }
 
 ### Delete user
-DELETE  http://localhost:3000/api/v1/users/2
+DELETE  expressjs-development-c804.up.railway.app/api/v1/users/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOm51bGwsIm9jY3VwYXRpb24iOm51bGwsImF2YXRhcl91cmwiOm51bGwsImlhdCI6MTcxNDQ4MDE1OX0.ieYowOwQnVRCwIiZdM5mgMxjH6dMRpVHQEo9MzURP0Y
 
 ### Get All Image
-GET http://localhost:3000/api/v1/image
+GET expressjs-development-c804.up.railway.app/api/v1/image
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOiJKbC4gVGlrdXMiLCJvY2N1cGF0aW9uIjoiSVQgQ29uc3VsdGFuIiwiYXZhdGFyX3VybCI6Imh0dHBzOi8vaWsuaW1hZ2VraXQuaW8vYmFndXNkcGEvMTcxNDQ4OTI3NTQzMl9YclpwdXpGbU0uanBnIiwiaWF0IjoxNzE0NDg5MjkyfQ.NziUVKMiz00jz7DK64S3HUiGoc58G3RuJlG8g-aK87A
 
 ### Get Image by ID
-GET http://localhost:3000/api/v1/image/2
+GET expressjs-development-c804.up.railway.app/api/v1/image/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOiJKbC4gVGlrdXMiLCJvY2N1cGF0aW9uIjoiSVQgQ29uc3VsdGFuIiwiYXZhdGFyX3VybCI6Imh0dHBzOi8vaWsuaW1hZ2VraXQuaW8vYmFndXNkcGEvMTcxNDQ4OTI3NTQzMl9YclpwdXpGbU0uanBnIiwiaWF0IjoxNzE0NDg5MjkyfQ.NziUVKMiz00jz7DK64S3HUiGoc58G3RuJlG8g-aK87A
 
 ### Put Image
-PUT http://localhost:3000/api/v1/image/2
+PUT expressjs-development-c804.up.railway.app/api/v1/image/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOiJKbC4gVGlrdXMiLCJvY2N1cGF0aW9uIjoiSVQgQ29uc3VsdGFuIiwiYXZhdGFyX3VybCI6Imh0dHBzOi8vaWsuaW1hZ2VraXQuaW8vYmFndXNkcGEvMTcxNDQ4OTI3NTQzMl9YclpwdXpGbU0uanBnIiwiaWF0IjoxNzE0NDg5MjkyfQ.NziUVKMiz00jz7DK64S3HUiGoc58G3RuJlG8g-aK87A
 Content-Type: application/json
 
@@ -65,5 +65,5 @@ Content-Type: application/json
 }
 
 ### Delete Image by ID
-DELETE http://localhost:3000/api/v1/image/2
+DELETE expressjs-development-c804.up.railway.app/api/v1/image/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImFkZHJlc3MiOiJKbC4gVGlrdXMiLCJvY2N1cGF0aW9uIjoiSVQgQ29uc3VsdGFuIiwiYXZhdGFyX3VybCI6Imh0dHBzOi8vaWsuaW1hZ2VraXQuaW8vYmFndXNkcGEvMTcxNDQ4OTI3NTQzMl9YclpwdXpGbU0uanBnIiwiaWF0IjoxNzE0NDg5MjkyfQ.NziUVKMiz00jz7DK64S3HUiGoc58G3RuJlG8g-aK87A
