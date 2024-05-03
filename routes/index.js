@@ -13,7 +13,7 @@ const file = fs.readFileSync(swagger_path, "utf-8");
 
 // API Docs
 const swaggerDocument = YAML.parse(file);
-router.use("/api/v1/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+router.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // API
 router.use("/api/v1", User)
