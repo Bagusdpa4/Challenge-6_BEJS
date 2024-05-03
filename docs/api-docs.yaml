@@ -394,8 +394,6 @@ paths:
                     example: User with id ${id} not found
                   data:
                     example: ~
-      security:
-        - bearerAuth: []
                   
     delete: 
       tags:
@@ -445,6 +443,36 @@ paths:
         - bearerAuth: []
 
   /image:
+    get :
+      tags:
+        - "Images"
+      summary: Get all Images
+      parameters:
+        - schema:
+            type: string
+          name: search
+          in: query
+          description: search for get title images
+      description: Get all images
+      responses:
+        200:
+          description: Success get all images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateImage'
+
     post:
       tags:
         - "Images"
@@ -505,38 +533,6 @@ paths:
       security:
         - bearerAuth: []
 
-    get :
-      tags:
-        - "Images"
-      summary: Get all Images
-      parameters:
-        - schema:
-            type: string
-          name: search
-          in: query
-          description: search for get title images
-      description: Get all images
-      responses:
-        200:
-          description: Success get all images
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: Success
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CreateImage'
-      security:
-        - bearerAuth: []
-
   /image/{id}:
     parameters:
       - schema:
@@ -581,8 +577,6 @@ paths:
                     example: Image with id ${id} not found!
                   data:
                     example: ~
-      security:
-        - bearerAuth: []
 
     put:
       tags:

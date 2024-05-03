@@ -5,8 +5,8 @@ const { image } = require("../libs/multer")
 
 // API Image
 router.post("/image",restrict, image.single('image'), create);
-router.get("/image",restrict, index);
-router.get("/image/:id",restrict, show);
+router.get("/image", index);
+router.get("/image/:id", show);
 router.put("/image/:id/",restrict, update);
 router.delete("/image/:id",restrict, destroy);
 
