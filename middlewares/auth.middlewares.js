@@ -26,7 +26,7 @@ module.exports = async (req, res, next) => {
       } else {
         return res.status(409).json({
           status: false,
-          message: "err.message",
+          message: err.message,
           data: null,
         });
       }
@@ -40,7 +40,7 @@ module.exports = async (req, res, next) => {
       if (!user) {
         return res.status(404).json({
           status: false,
-          message: "User not found",
+          message: "User or token not found",
           data: null,
         });
       }
